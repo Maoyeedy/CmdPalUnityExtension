@@ -1,4 +1,4 @@
-# Welcome to the Command Palette (CmdPal) Unity Extension repo
+# Command Palette (CmdPal) Unity Extension
 
 Related repositories include:
 
