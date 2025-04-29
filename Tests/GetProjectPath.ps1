@@ -33,7 +33,6 @@ function Get-UnityProjectsFromJson {
 }
 
 # Use your own projects-v1.json
-# $testJsonPath = Resolve-Path -Path "$PSScriptRoot\..\..\projects-v1.json"
 $testJsonPath = Resolve-Path -Path "$PSScriptRoot\projects-v1.json"
 Get-UnityProjectsFromJson $testJsonPath
 

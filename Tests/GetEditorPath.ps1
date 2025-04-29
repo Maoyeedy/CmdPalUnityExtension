@@ -74,5 +74,6 @@ function GetUnityExecutablePath {
 }
 
 GetUnityExecutablePath "2022.3.42f1"
+
 # Outputs:
 # C:\Program Files\Unity\Hub\Editor\2022.3.42f1\Editor\Unity.exe
