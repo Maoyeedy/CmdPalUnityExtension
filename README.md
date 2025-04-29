@@ -27,10 +27,14 @@ Released builds can be manually downloaded from this repository's [Releases page
 
 ## Development
 
-### View Recent Projects
-Most recent comes at bottom.
+### Parsing UnityHub History
+Beautify the compressed json with `jq`:
 ```
 cat ~/AppData/Roaming/UnityHub/projects-v1.json | jq
+```
+List most recent 3 projects:
+```
+cat ~/AppData/Roaming/UnityHub/projects-v1.json | jq '.data | to_entries | .[-3:] | from_entries'
 ```
 
 ### Launch project bypassing UnityHub
