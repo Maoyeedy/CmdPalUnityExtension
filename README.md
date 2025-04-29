@@ -23,3 +23,17 @@ In Progress.
 ### Via GitHub
 
 Released builds can be manually downloaded from this repository's [Releases page](https://github.com/maoyeedy/CmdPalUnityExtension/releases).
+
+
+## Development
+
+### View Recent Projects
+Most recent comes at bottom.
+```
+cat ~/AppData/Roaming/UnityHub/projects-v1.json | jq
+```
+
+### Launch project bypassing UnityHub
+```
+& "C:\Program Files\Unity\Hub\Editor\$Version\Editor\Unity.exe" -projectPath $Path
+```
