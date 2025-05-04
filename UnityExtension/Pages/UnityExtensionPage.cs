@@ -80,29 +80,6 @@ internal sealed partial class UnityExtensionPage : ListPage
     {
         var command = new OpenUnityProjectCommand(project.Path);
 
-        //var details = new Details
-        //{
-        //    Title = project.Title,
-        //    Metadata = new[]
-        //    {
-        //            new DetailsElement
-        //            {
-        //                Key = "Unity Version",
-        //                Data = new DetailsTags { Tags = [new Tag(project.Version)] }
-        //            },
-        //            new DetailsElement
-        //            {
-        //                Key = "Path",
-        //                Data = new DetailsTags { Tags = [new Tag(project.Path)] }
-        //            },
-        //            new DetailsElement
-        //            {
-        //                Key = "Last Modified",
-        //                Data = new DetailsTags { Tags = [new Tag(UnixTimeToDateTime(project.LastModified).ToString(System.Globalization.CultureInfo.InvariantCulture))] }
-        //            }
-        //        }
-        //};
-
         var tags = new List<Tag>();
         if (project.IsFavorite)
         {
@@ -115,7 +92,6 @@ internal sealed partial class UnityExtensionPage : ListPage
         {
             Title = project.Title,
             Subtitle = project.Path,
-            //Details = details,
             Icon = Resources.IconUnity,
             Tags = tags.ToArray()
         };
@@ -163,12 +139,6 @@ internal sealed partial class UnityExtensionPage : ListPage
         }
 
         return result;
-    }
-
-    private DateTime UnixTimeToDateTime(long unixTimeMilliseconds)
-    {
-        var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        return epoch.AddMilliseconds(unixTimeMilliseconds).ToLocalTime();
     }
 }
 
