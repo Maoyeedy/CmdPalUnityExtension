@@ -144,11 +144,11 @@ internal sealed partial class UnityExtensionPage : ListPage
 
 internal sealed class UnityProject
 {
-    public string Path { get; set; } = string.Empty;
-    public string Title { get; set; } = string.Empty;
-    public string Version { get; set; } = string.Empty;
-    public long LastModified { get; set; }
-    public bool IsFavorite { get; set; }
+    public string Path { get; init; } = string.Empty;
+    public string Title { get; init; } = string.Empty;
+    public string Version { get; init; } = string.Empty;
+    public long LastModified { get; init; }
+    public bool IsFavorite { get; init; }
 }
 
 internal sealed partial class OpenUnityProjectCommand : InvokableCommand
