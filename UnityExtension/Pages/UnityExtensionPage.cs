@@ -15,7 +15,9 @@ namespace UnityExtension;
 
 internal sealed partial class UnityExtensionPage : ListPage
 {
-    private const string ProjectsJsonPath = "\\UnityHub\\projects-v1.json";
+    private static string ProjectsJsonPath =>
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            "UnityHub\\projects-v1.json");
 
     public UnityExtensionPage()
     {
