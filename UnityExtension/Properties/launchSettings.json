@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "UnityExtension (Package)": {
+      "commandName": "MsixPackage",
+      "doNotLaunchApp": true
+    },
+    "UnityExtension (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
