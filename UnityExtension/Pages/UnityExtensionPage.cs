@@ -15,13 +15,9 @@ namespace UnityExtension;
 
 internal sealed partial class UnityExtensionPage : ListPage
 {
-    private static string ProjectsJsonPath =>
-        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            "UnityHub\\projects-v1.json");
-
     public UnityExtensionPage()
     {
-        Icon = IconHelpers.FromRelativePath("Assets\\UnityLogo.png");
+        Icon = Resources.IconUnity;
         Title = "Unity Projects";
         Name = "Open";
         ShowDetails = true;
@@ -62,7 +58,7 @@ internal sealed partial class UnityExtensionPage : ListPage
             {
                 Title = "Error loading Unity projects",
                 Subtitle = ex.Message,
-                Icon = new IconInfo("\uE8A7"),
+                Icon = Resources.IconUrl
             });
         }
 
@@ -72,7 +68,7 @@ internal sealed partial class UnityExtensionPage : ListPage
             {
                 Title = "No Unity projects found",
                 Subtitle = "Make sure you have Unity Hub installed and have opened projects with it",
-                Icon = new IconInfo("\uE8A7"),
+                Icon = Resources.IconUrl
             });
         }
 
@@ -120,7 +116,7 @@ internal sealed partial class UnityExtensionPage : ListPage
             Title = project.Title,
             Subtitle = project.Path,
             //Details = details,
-            Icon = new IconInfo("\uE8A7"),
+            Icon = Resources.IconUnity,
             Tags = tags.ToArray()
         };
     }
@@ -129,7 +125,7 @@ internal sealed partial class UnityExtensionPage : ListPage
     {
         var result = new List<UnityProject>();
         var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        var projectsJsonFilePath = Path.Combine(appDataPath, ProjectsJsonPath);
+        var projectsJsonFilePath = Path.Combine(appDataPath, Resources.ProjectsJsonPath);
 
         if (!File.Exists(projectsJsonFilePath))
         {
@@ -193,14 +189,13 @@ internal sealed partial class OpenUnityProjectCommand : InvokableCommand
     {
         _projectPath = projectPath;
         Name = "Open Unity Project";
-        Icon = IconHelpers.FromRelativePath("Assets\\UnityLogo.png");
+        Icon = Resources.IconUnity;
     }
 
     public override ICommandResult Invoke()
     {
         try
         {
-            // For now, we just open the folder containing the project
             Process.Start(new ProcessStartInfo
             {
                 FileName = _projectPath,
