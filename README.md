@@ -1,6 +1,6 @@
 # Command Palette (CmdPal) Unity Extension
 
-## Related Repositories
+Related Repositories
 
 1. [PowerToys Command Palette Utility](https://github.com/microsoft/PowerToys/tree/main/src/modules/cmdpal)  
 Core runtime that this extension builds upon.
