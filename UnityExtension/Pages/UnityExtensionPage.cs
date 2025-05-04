@@ -84,33 +84,33 @@ internal sealed partial class UnityExtensionPage : ListPage
     {
         var command = new OpenUnityProjectCommand(project.Path);
 
-        var details = new Details
-        {
-            Title = project.Title,
-            Metadata = new[]
-            {
-                    new DetailsElement
-                    {
-                        Key = "Unity Version",
-                        Data = new DetailsTags { Tags = [new Tag(project.Version)] }
-                    },
-                    new DetailsElement
-                    {
-                        Key = "Path",
-                        Data = new DetailsTags { Tags = [new Tag(project.Path)] }
-                    },
-                    new DetailsElement
-                    {
-                        Key = "Last Modified",
-                        Data = new DetailsTags { Tags = [new Tag(UnixTimeToDateTime(project.LastModified).ToString(System.Globalization.CultureInfo.InvariantCulture))] }
-                    }
-                }
-        };
+        //var details = new Details
+        //{
+        //    Title = project.Title,
+        //    Metadata = new[]
+        //    {
+        //            new DetailsElement
+        //            {
+        //                Key = "Unity Version",
+        //                Data = new DetailsTags { Tags = [new Tag(project.Version)] }
+        //            },
+        //            new DetailsElement
+        //            {
+        //                Key = "Path",
+        //                Data = new DetailsTags { Tags = [new Tag(project.Path)] }
+        //            },
+        //            new DetailsElement
+        //            {
+        //                Key = "Last Modified",
+        //                Data = new DetailsTags { Tags = [new Tag(UnixTimeToDateTime(project.LastModified).ToString(System.Globalization.CultureInfo.InvariantCulture))] }
+        //            }
+        //        }
+        //};
 
         var tags = new List<Tag>();
         if (project.IsFavorite)
         {
-            tags.Add(new Tag("⭐ Favorite") { Foreground = ColorHelpers.FromRgb(255, 215, 0) });
+            tags.Add(new Tag("⭐ Favorite") { Foreground = ColorHelpers.FromRgb(222, 186, 56) });
         }
 
         tags.Add(new Tag(project.Version));
@@ -119,7 +119,7 @@ internal sealed partial class UnityExtensionPage : ListPage
         {
             Title = project.Title,
             Subtitle = project.Path,
-            Details = details,
+            //Details = details,
             Icon = new IconInfo("\uE8A7"),
             Tags = tags.ToArray()
         };
