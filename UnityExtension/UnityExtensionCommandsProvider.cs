@@ -13,7 +13,7 @@ public partial class UnityExtensionCommandsProvider : CommandProvider
 
     public UnityExtensionCommandsProvider()
     {
-        DisplayName = "Unity projects extension for cmdpal";
+        DisplayName = "Unity Projects";
         Icon = IconHelpers.FromRelativePath("Assets\\StoreLogo.png");
         _commands = [
             new CommandItem(new UnityExtensionPage()) { Title = DisplayName },

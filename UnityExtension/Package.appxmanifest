@@ -16,7 +16,7 @@
        Publisher= to match your own identity -->
 
   <Properties>
-    <DisplayName>Unity projects extension for cmdpal</DisplayName>
+    <DisplayName>Unity Projects</DisplayName>
     <PublisherDisplayName>Maoyeedy</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -35,7 +35,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="Unity projects extension for cmdpal"
+        DisplayName="Unity Projects"
         Description="Unity projects extension for cmdpal"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
@@ -46,8 +46,8 @@
       <Extensions>
         <com:Extension Category="windows.comServer">
           <com:ComServer>
-            <com:ExeServer Executable="UnityExtension.exe" Arguments="-RegisterProcessAsComServer" DisplayName="Unity projects extension for cmdpal">
-              <com:Class Id="69f66764-760b-4031-8f20-f71edef2dac5" DisplayName="Unity projects extension for cmdpal" />
+            <com:ExeServer Executable="UnityExtension.exe" Arguments="-RegisterProcessAsComServer" DisplayName="Unity Projects">
+              <com:Class Id="69f66764-760b-4031-8f20-f71edef2dac5" DisplayName="Unity Projects" />
             </com:ExeServer>
           </com:ComServer>
         </com:Extension>
@@ -55,7 +55,7 @@
           <uap3:AppExtension Name="com.microsoft.commandpalette"
             Id="ID"
             PublicFolder="Public"
-            DisplayName="Unity projects extension for cmdpal"
+            DisplayName="Unity Projects"
             Description="Unity projects extension for cmdpal">
             <uap3:Properties>
               <CmdPalProvider>
