@@ -177,7 +177,7 @@ internal sealed partial class UnityExtensionPage : ListPage
     }
 }
 
-internal class UnityProject
+internal sealed class UnityProject
 {
     public string Path { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
@@ -186,7 +186,7 @@ internal class UnityProject
     public bool IsFavorite { get; set; }
 }
 
-internal class OpenUnityProjectCommand : InvokableCommand
+internal sealed partial class OpenUnityProjectCommand : InvokableCommand
 {
     private readonly string _projectPath;
 
