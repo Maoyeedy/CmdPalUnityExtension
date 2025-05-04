@@ -21,7 +21,7 @@ internal sealed partial class UnityExtensionPage : ListPage
 
     public UnityExtensionPage()
     {
-        Icon = IconHelpers.FromRelativePath("Assets\\StoreLogo.png");
+        Icon = IconHelpers.FromRelativePath("Assets\\UnityLogo.png");
         Title = "Unity Projects";
         Name = "Open";
         ShowDetails = true;
@@ -44,17 +44,16 @@ internal sealed partial class UnityExtensionPage : ListPage
                 var favoriteProjects = projects.Where(p => p.IsFavorite).ToList();
                 var nonFavoriteProjects = projects.Where(p => !p.IsFavorite).ToList();
 
-                // Create list items for favorite projects
                 foreach (var project in favoriteProjects)
                 {
                     items.Add(CreateProjectListItem(project));
                 }
 
-                // Create list items for non-favorite projects
                 foreach (var project in nonFavoriteProjects)
                 {
                     items.Add(CreateProjectListItem(project));
                 }
+
             }
         }
         catch (Exception ex)
@@ -63,7 +62,7 @@ internal sealed partial class UnityExtensionPage : ListPage
             {
                 Title = "Error loading Unity projects",
                 Subtitle = ex.Message,
-                //TODO: error icon
+                Icon = new IconInfo("\uE8A7"),
             });
         }
 
@@ -73,7 +72,7 @@ internal sealed partial class UnityExtensionPage : ListPage
             {
                 Title = "No Unity projects found",
                 Subtitle = "Make sure you have Unity Hub installed and have opened projects with it",
-                Icon = IconHelpers.FromRelativePath("Assets\\StoreLogo.png")
+                Icon = new IconInfo("\uE8A7"),
             });
         }
 
@@ -121,7 +120,7 @@ internal sealed partial class UnityExtensionPage : ListPage
             Title = project.Title,
             Subtitle = project.Path,
             Details = details,
-            Icon = IconHelpers.FromRelativePath("Assets\\UnityLogo.png"),
+            Icon = new IconInfo("\uE8A7"),
             Tags = tags.ToArray()
         };
     }
