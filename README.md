@@ -1,10 +1,13 @@
 # Command Palette (CmdPal) Unity Extension
 
-Related repositories:
+## Related Repositories
 
-* [PowerToys Command Palette utility](https://github.com/microsoft/PowerToys/tree/main/src/modules/cmdpal)
-* [Unity Setup Powershell Module](https://github.com/microsoft/unitysetup.powershell) (Great project but unused here)
-* [Unity3D Project lister and launcher](https://github.com/falldeaf/unity-flowlauncher) (Inspired me to make this plugin)
+1. [PowerToys Command Palette Utility](https://github.com/microsoft/PowerToys/tree/main/src/modules/cmdpal)  
+Core runtime that this extension builds upon.
+
+2. [Unity3D Project Lister and Launcher](https://github.com/falldeaf/unity-flowlauncher)  
+Inspiration for creating this plugin, but I'll avoid its dependency on [Unity Setup Powershell Module](https://github.com/microsoft/unitysetup.powershell).
+
 
 ## Installation
 
