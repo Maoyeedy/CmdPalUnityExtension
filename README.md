@@ -8,10 +8,8 @@ This project provide a [Command Palette](https://learn.microsoft.com/en-us/windo
 ## Installation
 
 ### Requirements
-The Command Palette Unity Extension requires:
 * [PowerToys](https://learn.microsoft.com/en-us/windows/powertoys/) with Command Palette included
 * Windows 11
-* An ARM64 or x64 processor
 
 ### WinGet [Recommended]
 
