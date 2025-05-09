@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 
@@ -9,28 +8,24 @@ internal sealed partial class OpenExplorerCommand : InvokableCommand
 {
     private readonly string _projectPath;
 
-    public OpenExplorerCommand(string projectPath)
+    public OpenExplorerCommand(UnityProject project)
     {
-        _projectPath = projectPath;
-        Name = "Open Unity Project";
-        Icon = Resources.IconUnity;
+        Name = "Open in Explorer";
+        Icon = Resources.IconUrl;
+
+        _projectPath = project.Path;
     }
 
     public override ICommandResult Invoke()
     {
         try
         {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = _projectPath,
-                UseShellExecute = true
-            });
-
+            ShellHelpers.OpenInShell("explorer.exe", $"\"{_projectPath}\"", null, ShellHelpers.ShellRunAsType.None, false);
             return CommandResult.Hide();
         }
         catch (Exception ex)
         {
-            return CommandResult.ShowToast($"Error opening project: {ex.Message}");
+            return CommandResult.ShowToast($"Error opening project folder: {ex.Message}");
         }
     }
 }

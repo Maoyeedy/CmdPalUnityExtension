@@ -76,7 +76,9 @@ internal sealed partial class UnityExtensionPage : ListPage
 
     private static ListItem CreateProjectListItem(UnityProject project)
     {
-        var command = new OpenExplorerCommand(project.Path);
+        // var command = new OpenExplorerCommand(project.Path);
+
+        var command = new OpenUnityCommand(project);
 
         var tags = new List<Tag>();
         if (project.IsFavorite)

@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 
 namespace UnityExtension;
@@ -7,33 +9,39 @@ namespace UnityExtension;
 /// </summary>
 internal sealed partial class OpenUnityCommand : InvokableCommand
 {
-    public override string Name => "Open Unity";
-    private string _projectPath;
-    private string _executablePath;
+    private readonly string _projectPath;
+    private readonly string _projectVersion;
+    private string? _editorPath;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="OpenUnityCommand"/> class.
-    /// </summary>
-    /// <param name="executablePath">The path to the Unity Editor executable.</param>
-    /// <param name="projectPath">The path to the project.</param>
-    public OpenUnityCommand(string executablePath, string projectPath)
+    public OpenUnityCommand(UnityProject project)
     {
-        this._projectPath = projectPath;
-        this._executablePath = executablePath;
+        Name = "Open in Unity";
+        Icon = Resources.IconUnity;
+
+        _projectPath = project.Path;
+        _projectVersion = project.Version;
+        // _editorPath = EditorParser.GetExecutablePathForVersion(_version);
     }
 
-    /// <summary>
-    /// Invokes the command to open the project with corresponding version of Editor.
-    /// </summary>
-    /// <returns>The result of the command execution.</returns>
     public override CommandResult Invoke()
     {
-        string? arguments;
+        // Lazy-load only when invoking
+        _editorPath ??= EditorParser.GetExecutablePathForVersion(_projectVersion);
 
-        arguments = $"--folder-uri \"{_projectPath}\"";
+        if (string.IsNullOrEmpty(_editorPath) || !File.Exists(_editorPath))
+        {
+            return CommandResult.ShowToast($"Unity {_projectVersion} not found. Please install through Unity Hub.");
+        }
 
-        ShellHelpers.OpenInShell(_executablePath, arguments, null, ShellHelpers.ShellRunAsType.None, false);
-
-        return CommandResult.Hide();
+        try
+        {
+            var arguments = $"-projectPath \"{_projectPath}\"";
+            ShellHelpers.OpenInShell(_editorPath, arguments, null, ShellHelpers.ShellRunAsType.None, false);
+            return CommandResult.Hide();
+        }
+        catch (Exception ex)
+        {
+            return CommandResult.ShowToast($"Error launching Unity: {ex.Message}");
+        }
     }
 }
