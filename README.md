@@ -52,9 +52,10 @@ If you have bug reports or feature requests, any issues are welcome.
 If you want to contribute, submit pull request directly to `master`.
 
 ## TODO
-- [ ] Expose settings to sort and filter the list output.
+- [x] Expose settings to sort and filter the list output.
+- [ ] Add fallback dialog if editor for a project is not installed.
+- [ ] Option to open project with another Unity version.
 - [ ] Add sub-command to view all installed Unity versions and their paths.
-- [ ] Option to open project with another installed Unity version.
 
 ## Related Repositories
 
