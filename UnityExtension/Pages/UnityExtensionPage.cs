@@ -6,7 +6,6 @@ using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -30,7 +29,7 @@ internal sealed partial class UnityExtensionPage : ListPage
 
         try
         {
-            var projects = GetUnityProjects();
+            var projects = ProjectParser.GetUnityProjects();
             if (projects.Count > 0)
             {
                 // Sort projects by last modified date (newest first)
@@ -49,7 +48,6 @@ internal sealed partial class UnityExtensionPage : ListPage
                 {
                     items.Add(CreateProjectListItem(project));
                 }
-
             }
         }
         catch (Exception ex)
@@ -76,9 +74,9 @@ internal sealed partial class UnityExtensionPage : ListPage
         return items.ToArray();
     }
 
-    private ListItem CreateProjectListItem(UnityProject project)
+    private static ListItem CreateProjectListItem(UnityProject project)
     {
-        var command = new OpenUnityProjectCommand(project.Path);
+        var command = new OpenExplorerCommand(project.Path);
 
         var tags = new List<Tag>();
         if (project.IsFavorite)
@@ -95,88 +93,5 @@ internal sealed partial class UnityExtensionPage : ListPage
             Icon = Resources.IconUnity,
             Tags = tags.ToArray()
         };
-    }
-
-    private List<UnityProject> GetUnityProjects()
-    {
-        var result = new List<UnityProject>();
-        var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        var projectsJsonFilePath = Path.Combine(appDataPath, Resources.ProjectsJsonPath);
-
-        if (!File.Exists(projectsJsonFilePath))
-        {
-            return result;
-        }
-
-        try
-        {
-            var jsonContent = File.ReadAllText(projectsJsonFilePath);
-            var projectsRoot = JsonDocument.Parse(jsonContent).RootElement;
-
-            if (projectsRoot.TryGetProperty("data", out var data))
-            {
-                foreach (var property in data.EnumerateObject())
-                {
-                    var projectPath = property.Name;
-                    var projectInfo = property.Value;
-
-                    var project = new UnityProject
-                    {
-                        Path = projectPath,
-                        Title = projectInfo.GetProperty("title").GetString() ?? Path.GetFileName(projectPath),
-                        Version = projectInfo.GetProperty("version").GetString() ?? "Unknown",
-                        LastModified = projectInfo.GetProperty("lastModified").GetInt64(),
-                        IsFavorite = projectInfo.TryGetProperty("isFavorite", out var isFavorite) && isFavorite.GetBoolean()
-                    };
-
-                    result.Add(project);
-                }
-            }
-        }
-        catch (Exception)
-        {
-            // Any error in parsing will result in an empty list
-        }
-
-        return result;
-    }
-}
-
-internal sealed class UnityProject
-{
-    public string Path { get; init; } = string.Empty;
-    public string Title { get; init; } = string.Empty;
-    public string Version { get; init; } = string.Empty;
-    public long LastModified { get; init; }
-    public bool IsFavorite { get; init; }
-}
-
-internal sealed partial class OpenUnityProjectCommand : InvokableCommand
-{
-    private readonly string _projectPath;
-
-    public OpenUnityProjectCommand(string projectPath)
-    {
-        _projectPath = projectPath;
-        Name = "Open Unity Project";
-        Icon = Resources.IconUnity;
-    }
-
-    public override ICommandResult Invoke()
-    {
-        try
-        {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = _projectPath,
-                UseShellExecute = true
-            });
-
-            return CommandResult.Hide();
-        }
-        catch (Exception ex)
-        {
-            return CommandResult.ShowToast($"Error opening project: {ex.Message}");
-        }
     }
 }
