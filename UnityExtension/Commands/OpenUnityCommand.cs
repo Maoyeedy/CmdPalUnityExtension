@@ -20,7 +20,6 @@ internal sealed partial class OpenUnityCommand : InvokableCommand
 
         _projectPath = project.Path;
         _projectVersion = project.Version;
-        // _editorPath = EditorParser.GetExecutablePathForVersion(_version);
     }
 
     public override CommandResult Invoke()
@@ -36,7 +35,7 @@ internal sealed partial class OpenUnityCommand : InvokableCommand
         try
         {
             var arguments = $"-projectPath \"{_projectPath}\"";
-            ShellHelpers.OpenInShell(_editorPath, arguments, null, ShellHelpers.ShellRunAsType.None, false);
+            ShellHelpers.OpenInShell(_editorPath, arguments);
             return CommandResult.Hide();
         }
         catch (Exception ex)

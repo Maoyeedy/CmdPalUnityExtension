@@ -20,7 +20,7 @@ internal sealed partial class OpenExplorerCommand : InvokableCommand
     {
         try
         {
-            ShellHelpers.OpenInShell("explorer.exe", $"\"{_projectPath}\"", null, ShellHelpers.ShellRunAsType.None, false);
+            ShellHelpers.OpenInShell("explorer.exe", $"\"{_projectPath}\"");
             return CommandResult.Hide();
         }
         catch (Exception ex)

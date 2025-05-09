@@ -6,8 +6,8 @@ namespace UnityExtension;
 
 internal sealed class SettingsManager : JsonSettingsManager
 {
-    private ToggleSetting GroupFavoritesFirst { get; }
-    public bool IsFavoritesFirst => GroupFavoritesFirst.Value;
+    private ToggleSetting GroupFavoritesFirstSetting { get; }
+    public bool GroupFavoritesFirst => GroupFavoritesFirstSetting.Value;
 
     private static string SettingsJsonPath()
     {
@@ -20,13 +20,13 @@ internal sealed class SettingsManager : JsonSettingsManager
     {
         FilePath = SettingsJsonPath();
 
-        GroupFavoritesFirst = new ToggleSetting(
+        GroupFavoritesFirstSetting = new ToggleSetting(
             key: "groupFavoritesFirst",
             label: "Group favorites first",
             description: "Display favorite Unity projects at the top of the list",
             defaultValue: true);
 
-        Settings.Add(GroupFavoritesFirst);
+        Settings.Add(GroupFavoritesFirstSetting);
 
         LoadSettings();
 

@@ -19,8 +19,8 @@ internal sealed partial class UnityExtensionPage : ListPage
     {
         _settingsManager = settingsManager;
         Icon = Resources.IconUnity;
-        Title = "Unity Projects";
-        Name = "Open";
+        Title = "Recent Unity Projects";
+        Name = "Recent Unity Projects";
         ShowDetails = false;
     }
 
@@ -32,26 +32,27 @@ internal sealed partial class UnityExtensionPage : ListPage
         try
         {
             var projects = ProjectParser.GetUnityProjects();
-            if (projects.Count > 0)
+
+            if (projects.Count == 0)
             {
-                // Sort projects by last modified date (newest first)
+                items.Add(new ListItem(new NoOpCommand())
+                {
+                    Title = "No Unity projects found",
+                    Subtitle = "Make sure you have Unity Hub installed and have opened projects with it",
+                    Icon = Resources.IconUrl
+                });
+            }
+            else
+            {
                 projects.Sort((a, b) => b.LastModified.CompareTo(a.LastModified));
 
-                if (_settingsManager.IsFavoritesFirst)
+                if (_settingsManager.GroupFavoritesFirst)
                 {
-                    // Show favorite projects first
                     var favoriteProjects = projects.Where(p => p.IsFavorite).ToList();
                     var nonFavoriteProjects = projects.Where(p => !p.IsFavorite).ToList();
 
-                    foreach (var project in favoriteProjects)
-                    {
-                        items.Add(CreateProjectListItem(project));
-                    }
-
-                    foreach (var project in nonFavoriteProjects)
-                    {
-                        items.Add(CreateProjectListItem(project));
-                    }
+                    items.AddRange(favoriteProjects.Select(CreateProjectListItem));
+                    items.AddRange(nonFavoriteProjects.Select(CreateProjectListItem));
                 }
             }
         }
@@ -61,16 +62,6 @@ internal sealed partial class UnityExtensionPage : ListPage
             {
                 Title = "Error loading Unity projects",
                 Subtitle = ex.Message,
-                Icon = Resources.IconUrl
-            });
-        }
-
-        if (items.Count == 0)
-        {
-            items.Add(new ListItem(new NoOpCommand())
-            {
-                Title = "No Unity projects found",
-                Subtitle = "Make sure you have Unity Hub installed and have opened projects with it",
                 Icon = Resources.IconUrl
             });
         }
