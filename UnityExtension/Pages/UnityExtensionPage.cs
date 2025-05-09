@@ -14,12 +14,14 @@ namespace UnityExtension;
 
 internal sealed partial class UnityExtensionPage : ListPage
 {
-    public UnityExtensionPage()
+    private readonly SettingsManager _settingsManager;
+    public UnityExtensionPage(SettingsManager settingsManager)
     {
+        _settingsManager = settingsManager;
         Icon = Resources.IconUnity;
         Title = "Unity Projects";
         Name = "Open";
-        ShowDetails = true;
+        ShowDetails = false;
     }
 
     public override IListItem[] GetItems()
@@ -35,18 +37,21 @@ internal sealed partial class UnityExtensionPage : ListPage
                 // Sort projects by last modified date (newest first)
                 projects.Sort((a, b) => b.LastModified.CompareTo(a.LastModified));
 
-                // Show favorite projects first
-                var favoriteProjects = projects.Where(p => p.IsFavorite).ToList();
-                var nonFavoriteProjects = projects.Where(p => !p.IsFavorite).ToList();
-
-                foreach (var project in favoriteProjects)
+                if (_settingsManager.IsFavoritesFirst)
                 {
-                    items.Add(CreateProjectListItem(project));
-                }
+                    // Show favorite projects first
+                    var favoriteProjects = projects.Where(p => p.IsFavorite).ToList();
+                    var nonFavoriteProjects = projects.Where(p => !p.IsFavorite).ToList();
 
-                foreach (var project in nonFavoriteProjects)
-                {
-                    items.Add(CreateProjectListItem(project));
+                    foreach (var project in favoriteProjects)
+                    {
+                        items.Add(CreateProjectListItem(project));
+                    }
+
+                    foreach (var project in nonFavoriteProjects)
+                    {
+                        items.Add(CreateProjectListItem(project));
+                    }
                 }
             }
         }

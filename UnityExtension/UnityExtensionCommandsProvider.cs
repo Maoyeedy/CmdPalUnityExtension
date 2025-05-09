@@ -10,13 +10,17 @@ namespace UnityExtension;
 public partial class UnityExtensionCommandsProvider : CommandProvider
 {
     private readonly ICommandItem[] _commands;
+    private readonly SettingsManager _settingsManager = new();
 
     public UnityExtensionCommandsProvider()
     {
         DisplayName = "Unity Projects";
         Icon = IconHelpers.FromRelativePath("Assets\\StoreLogo.png");
-        _commands = [
-            new CommandItem(new UnityExtensionPage()) { Title = DisplayName },
+
+        Settings = _settingsManager.Settings;
+        _commands =
+        [
+            new CommandItem(new UnityExtensionPage(_settingsManager)) { Title = DisplayName },
         ];
     }
 
@@ -24,5 +28,4 @@ public partial class UnityExtensionCommandsProvider : CommandProvider
     {
         return _commands;
     }
-
 }
