@@ -31,14 +31,18 @@ Released builds can be manually downloaded from this repository's [Releases page
 
 ## Development
 
-### Parsing UnityHub History
-Beautify the history json with `jq`:
+### Parsing Recent Projects
+```powershell
+# Beautify the history json
+jq . "$HOME/AppData/Roaming/UnityHub/projects-v1.json"
+
+# List most recent 3 projects:
+jq '.data | to_entries | .[-3:] | from_entries' "$HOME/AppData/Roaming/UnityHub/projects-v1.json"
 ```
-cat ~/AppData/Roaming/UnityHub/projects-v1.json | jq
-```
-List most recent 3 projects:
-```
-cat ~/AppData/Roaming/UnityHub/projects-v1.json | jq '.data | to_entries | .[-3:] | from_entries'
+
+### Parsing Installed Editors
+```powershell
+Get-ChildItem -Path "HKLM:\SOFTWARE\Unity Technologies\Installer\", "HKCU:\SOFTWARE\Unity Technologies\Installer\"
 ```
 
 [//]: # (### Launch project bypassing UnityHub)
