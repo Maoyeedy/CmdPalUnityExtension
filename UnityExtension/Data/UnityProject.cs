@@ -1,5 +1,5 @@
 ﻿namespace UnityExtension;
-internal record UnityProject
+internal sealed record UnityProject
 {
     public string Path { get; init; } = string.Empty;
     public string Title { get; init; } = string.Empty;
