@@ -8,12 +8,16 @@ This project provide a [Command Palette](https://learn.microsoft.com/en-us/windo
 ## Installation
 
 ### Requirements
-* [PowerToys](https://learn.microsoft.com/en-us/windows/powertoys/) with Command Palette included
-* Windows 11
+- [PowerToys](https://learn.microsoft.com/en-us/windows/powertoys/) installed, with Command Palette module enabled
+- Unity Hub installed, with recent projects history
+> Unity Hub is not required to run in the background, as this extension launches editor directly.
+
+[//]: # (* Windows 11)
 
 ### WinGet [Recommended]
 
-`winget install maoyeedy.UnityForCmdPal`
+[//]: # (`winget install maoyeedy.UnityForCmdPal`)
+In Progress.
 
 ### Microsoft Store
 
@@ -37,10 +41,10 @@ List most recent 3 projects:
 cat ~/AppData/Roaming/UnityHub/projects-v1.json | jq '.data | to_entries | .[-3:] | from_entries'
 ```
 
-### Launch project bypassing UnityHub
-```
-& "C:\Program Files\Unity\Hub\Editor\$Version\Editor\Unity.exe" -projectPath $Path
-```
+[//]: # (### Launch project bypassing UnityHub)
+[//]: # (```)
+[//]: # (& "C:\Program Files\Unity\Hub\Editor\$Version\Editor\Unity.exe" -projectPath $Path)
+[//]: # (```)
 
 ## Contributing
 If you have bug reports or feature requests, any issues are welcome.
@@ -49,8 +53,7 @@ If you want to contribute, submit pull request directly to `master`.
 
 ## TODO
 - [ ] Expose settings to sort and filter the list output.
-- [ ] Expose settings to customize details panel.
-- [ ] Expose command to list all installed Unity versions and their paths.
+- [ ] Add sub-command to view all installed Unity versions and their paths.
 - [ ] Option to open project with another installed Unity version.
 
 ## Related Repositories
