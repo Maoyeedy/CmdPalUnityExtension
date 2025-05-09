@@ -46,4 +46,16 @@ public static class EditorParser
 
         return string.Empty;
     }
+
+    internal static string GetExecutablePathForVersion(string version)
+    {
+        var path = GetPathForVersion(version);
+        if (string.IsNullOrEmpty(path))
+        {
+            return string.Empty;
+        }
+
+        var executablePath = Path.Combine(path, "Editor", "Unity.exe");
+        return File.Exists(executablePath) ? executablePath : string.Empty;
+    }
 }
