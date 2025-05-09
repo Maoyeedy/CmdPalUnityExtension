@@ -76,9 +76,15 @@ internal sealed partial class UnityExtensionPage : ListPage
 
     private static ListItem CreateProjectListItem(UnityProject project)
     {
-        // var command = new OpenExplorerCommand(project.Path);
+        var defaultCommand = new OpenUnityCommand(project);
 
-        var command = new OpenUnityCommand(project);
+        var contextCommands = new List<IContextItem>
+        {
+            new CommandContextItem(new OpenExplorerCommand(project))
+            {
+                Title = "Open in File Explorer"
+            }
+        };
 
         var tags = new List<Tag>();
         if (project.IsFavorite)
@@ -88,12 +94,13 @@ internal sealed partial class UnityExtensionPage : ListPage
 
         tags.Add(new Tag(project.Version));
 
-        return new ListItem(command)
+        return new ListItem(defaultCommand)
         {
             Title = project.Title,
             Subtitle = project.Path,
             Icon = Resources.IconUnity,
-            Tags = tags.ToArray()
+            Tags = tags.ToArray(),
+            MoreCommands = contextCommands.ToArray()
         };
     }
 }
