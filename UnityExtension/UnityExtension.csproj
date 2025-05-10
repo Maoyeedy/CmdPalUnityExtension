@@ -75,5 +75,6 @@
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <DefaultLanguage>en-us</DefaultLanguage>
   </PropertyGroup>
 </Project>
