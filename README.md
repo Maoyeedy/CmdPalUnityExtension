@@ -60,6 +60,7 @@ If you want to contribute, submit pull request directly to `master`.
 - [ ] Add fallback dialog if editor for a project is not installed.
 - [ ] Option to open project with another Unity version.
 - [ ] Add sub-command to view all installed Unity versions and their paths.
+- [ ] Overwrite timestamp in unityhub json.
 
 ## Related Repositories
 
